@@ -14,20 +14,10 @@ from rest_framework.decorators import authentication_classes, permission_classes
 
 
 
-@api_view(['GET', 'POST'])
+
 def home(request):
-    if request.method == 'GET':
-        students = {
-                    'Name':'Osama',
-                    'id': 1,
-                    "data" : [ ' 1', '2', '3']
-                    }
-        return Response(students)
-    elif request.method == 'POST':
-        data = request.data
-        print(data)
-        print(data['data'])
-        return Response('POST request')
+    
+    return render(request, 'index.html')
     
     
     
@@ -119,3 +109,32 @@ def register_problem(request):
         problem.save()
         return Response('Problem Register')
     return Response('Problem')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# @api_view(['GET', 'POST'])
+# def home(request):
+#     if request.method == 'GET':
+#         students = {
+#                     'Name':'Osama',
+#                     'id': 1,
+#                     "data" : [ ' 1', '2', '3']
+#                     }
+#         return Response(students)
+#     elif request.method == 'POST':
+#         data = request.data
+#         print(data)
+#         print(data['data'])
+#         return Response('POST request')
