@@ -18,4 +18,4 @@ class ProblemsSerializer(serializers.ModelSerializer):
 class DegreeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Degree
-        fields = ['degree']
+        fields = ['servo_name', 'degree1', 'degree2', 'degree3']
