@@ -13,3 +13,9 @@ class ProblemsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Problems
         fields = ['title', 'description']
+        
+
+class DegreeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Degree
+        fields = ['degree']

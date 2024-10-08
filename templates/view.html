@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A community page for students to share their coding problems and solutions.">
+    <meta name="keywords" content="coding, problems, solutions, programming, students, community">
+    <title>Student Coding Community</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+        main {
+            padding: 20px;
+        }
+        section {
+            margin-bottom: 40px;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button[type="submit"] {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button[type="submit"]:hover {
+            background-color: #555;
+        }
+        article {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        article h3 {
+            margin-top: 0;
+        }
+        pre {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            max-height:400px;
+            overflow-x: auto;
+        }
+        footer {
+            text-align: center;
+            padding: 10px 0;
+            background-color: #333;
+            color: #fff;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        .error{
+            background-color: #ff8e4c45;
+            padding: 12px;
+            margin-bottom: 2rem; 
+            list-style: none;
+        }
+        .success{
+            background-color: #d5ffd5;
+            padding: 12px;
+            margin-bottom: 2rem; 
+            list-style: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Student Coding Community</h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="#share-code">Share Your Code</a></li>
+                <li><a href="#browse-codes">Browse Codes</a></li>
+                <li><a href="#contact">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="share-code">
+            {% if messages %}
+            <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+            </ul>
+            {% endif %}
+            <h2>Share Your Code</h2>
+            <form action="?action=add" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="title">Title:</label>
+                    <input type="text" id="title" name="title" placeholder="e.g., Fixing an Issue with Django Models" required>
+                </div>
+                <div class="form-group">
+                    <label for="problem-description">Problem Description:</label>
+                    <textarea id="problem-description" name="description" rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="code">Your Code:</label>
+                    <textarea id="code" name="code" rows="10" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="tags">Tags:</label>
+                    <input type="text" id="tags" name="tags" placeholder="e.g., Python, Django, Algorithm" required>
+                </div>
+                <button type="submit">Submit</button>
+            </form>
+        </section>
+
+        <section id="browse-codes">
+            <h2>Browse Codes</h2>
+            {% for data in datas %}
+            <article>
+                <h3>{{data.title}} <span>{{data.date}}</span>  <a href="/community_detail?id={{data.id}}"><button type="submit">View</button></a></h3>
+                <p><strong>Description:</strong> {{data.description}}</p>
+                <pre><code style="max-width: 100%; box-sizing: border-box; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;">{{data.code}}
+                </code></pre>
+                <p><strong>Tags:</strong>{{data.tags}}</p>
+            </article>
+             {% endfor %}
+           
+           
+            <!-- Add more articles as needed -->
+        </section>
+    </main>
+
+    {% comment %} <footer>
+        <p>&copy; 2024 Student Coding Community. All rights reserved.</p>
+    </footer> {% endcomment %}
+</body>
+</html>
